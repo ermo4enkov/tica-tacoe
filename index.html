@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Tica-tacoe</title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -27,6 +27,27 @@
             </tbody>
         </table>
     </article>
-    <script src="index.js" async/>
+    <script>
+        const CIRCLE = 'CIRCLE';
+        const CROSS = 'CROSS';
+        let last = '';
+        let fields = [];
+        const elems = document.querySelectorAll('td.field');
+        elems.forEach(element => {
+            element.addEventListener("click", (e)=> {
+                if (typeof fields[e.target.id] !== 'undefined'){
+                    return false
+                }
+
+                if (last === CROSS){
+                    last = CIRCLE
+                    fields[e.target.id] = CROSS
+                } else{
+                    last = CROSS
+                    fields[e.target.id] = CIRCLE
+                }
+            })
+        });
+    </script>
 </body>
 </html>
