@@ -33,31 +33,56 @@
         let last = '';
         let fields = [[], [], []];
 
-        function addValueToMatrix(value){
+        function addValueToMatrix(value, sign){
+            let res;
+            let slot;
             if (value <= 2){
-                return 0
+                res = 0
+                slot = value
+            } else if(value >= 3 && value <= 5){
+                res = 1
+                slot = value - 3
+            } else {
+                res = 2
+                slot = value - 6
             }
 
-            if (value >= 3 && value <= 5){
-                return 1
-            }
-
-            return 2
+            return fields[res][slot] = sign
         }
+
+        function checkFields(){
+            fields.forEach(item => {
+                if (item.length === 3){
+                    console.log('Thats all')
+                }
+                item.filter((a, index) => {
+                    // console.log("item", item)
+                    // console.log("a", item[a])
+                    // console.log("b", item[b])
+                    // console.log(item[a] === item[b])
+                    console.log(item[index])
+                    console.log(item.indexOf(a) === index)
+                })
+            })
+        }
+
+
         const elems = document.querySelectorAll('td.field');
         elems.forEach(element => {
             element.addEventListener("click", (e)=> {
-                console.log(fields)
-                if (typeof fields[addValueToMatrix(e.target.id)][e.target.id] !== 'undefined'){
-                    return false
-                }
+                // console.log(fields)
+                // if (typeof fields[addValueToMatrix(e.target.id)][e.target.id] !== 'undefined'){
+                //     return false
+                // }
                 if (last === CROSS && last !== ''){
                     last = CIRCLE
-                    fields[addValueToMatrix(e.target.id)][e.target.id] = CROSS
+                    addValueToMatrix(e.target.id, CROSS)
+                    checkFields()
                     return element.innerHTML = "<img src='assets/circle.svg' alt='' width='90px' />"
                 } else {
                     last = CROSS
-                    fields[addValueToMatrix(e.target.id)][e.target.id] = CIRCLE
+                    addValueToMatrix(e.target.id, CIRCLE)
+                    checkFields()
                     element.innerHTML = "<img src='assets/cross.svg' alt='' width='90px' />"
                 }
             })
