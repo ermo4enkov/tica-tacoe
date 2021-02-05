@@ -66,20 +66,18 @@
         const elems = document.querySelectorAll('td.field');
         elems.forEach(element => {
             element.addEventListener("click", (e)=> {
-                // console.log(fields)
-                // if (typeof fields[addValueToMatrix(e.target.id)][e.target.id] !== 'undefined'){
-                //     return false
-                // }
-                if (last === CROSS || last === ''){
-                    last = CIRCLE
-                    addValueToMatrix(e.target.id, CIRCLE)
-                    checkFields()
-                    return element.innerHTML = "<img src='assets/circle.svg' alt='' width='90px' />"
-                } else {
+                if (last === '' || last === CIRCLE){
                     last = CROSS
                     addValueToMatrix(e.target.id, CROSS)
                     checkFields()
                     return element.innerHTML = "<img src='assets/cross.svg' alt='' width='90px' />"
+                }
+
+                if(last === CROSS) {
+                    last = CIRCLE
+                    addValueToMatrix(e.target.id, CIRCLE)
+                    checkFields()
+                    return element.innerHTML = "<img src='assets/circle.svg' alt='' width='90px' />"
                 }
             })
         });
