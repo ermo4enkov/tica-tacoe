@@ -51,19 +51,15 @@
         }
 
         function checkFields(){
-            fields.forEach(item => {
-                if (item.length === 3){
-                    console.log('Thats all')
-                }
-                item.filter((a, index) => {
-                    // console.log("item", item)
-                    // console.log("a", item[a])
-                    // console.log("b", item[b])
-                    // console.log(item[a] === item[b])
-                    console.log(item[index])
-                    console.log(item.indexOf(a) === index)
-                })
-            })
+            // fields.forEach(item => {
+            //     if (item.length === 3){
+            //         console.log('Thats all')
+            //     }
+            //     res =  item.filter((item, index, array) => {
+            //         return array.findIndex(t => t[keyName] === item[keyName]) === index;
+            //     }).length !== source.length
+            //     console.log(res)
+            // })
         }
 
 
@@ -74,16 +70,16 @@
                 // if (typeof fields[addValueToMatrix(e.target.id)][e.target.id] !== 'undefined'){
                 //     return false
                 // }
-                if (last === CROSS && last !== ''){
+                if (last === CROSS || last === ''){
                     last = CIRCLE
-                    addValueToMatrix(e.target.id, CROSS)
+                    addValueToMatrix(e.target.id, CIRCLE)
                     checkFields()
                     return element.innerHTML = "<img src='assets/circle.svg' alt='' width='90px' />"
                 } else {
                     last = CROSS
-                    addValueToMatrix(e.target.id, CIRCLE)
+                    addValueToMatrix(e.target.id, CROSS)
                     checkFields()
-                    element.innerHTML = "<img src='assets/cross.svg' alt='' width='90px' />"
+                    return element.innerHTML = "<img src='assets/cross.svg' alt='' width='90px' />"
                 }
             })
         });
