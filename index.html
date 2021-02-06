@@ -31,7 +31,7 @@
         const CIRCLE = 'CIRCLE';
         const CROSS = 'CROSS';
         let last = '';
-        let fields = [[], [], []];
+        let fields = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]];
 
         function addValueToMatrix(value, sign){
             let res;
@@ -50,16 +50,19 @@
             return fields[res][slot] = sign
         }
 
-        function checkFields(){
-            // fields.forEach(item => {
-            //     if (item.length === 3){
-            //         console.log('Thats all')
-            //     }
-            //     res =  item.filter((item, index, array) => {
-            //         return array.findIndex(t => t[keyName] === item[keyName]) === index;
-            //     }).length !== source.length
-            //     console.log(res)
-            // })
+        function checkHorizontalFields(){
+            const [first, second, third] = fields;
+            const firstWon = first.every((item, index, arr) => item === arr[0])
+            const secondWon = second.every((item, index, arr) => item === arr[0])
+            const thirdWon = third.every((item, index, arr) => item === arr[0])
+            return firstWon || secondWon || thirdWon;
+        }
+
+        function checkVerticalFields(){
+            const [first, second, third] = fields;
+            for (let count = 0; count < 3; count += 1){
+                return first[count] === second[count] && first[count] === third[count]
+            }
         }
 
 
@@ -69,14 +72,16 @@
                 if (last === '' || last === CIRCLE){
                     last = CROSS
                     addValueToMatrix(e.target.id, CROSS)
-                    checkFields()
+                    checkHorizontalFields()
+                    console.log(checkVerticalFields())
                     return element.innerHTML = "<img src='assets/cross.svg' alt='' width='90px' />"
                 }
 
                 if(last === CROSS) {
                     last = CIRCLE
                     addValueToMatrix(e.target.id, CIRCLE)
-                    checkFields()
+                    checkHorizontalFields()
+                    console.log(checkVerticalFields())
                     return element.innerHTML = "<img src='assets/circle.svg' alt='' width='90px' />"
                 }
             })
