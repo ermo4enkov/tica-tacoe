@@ -26,6 +26,7 @@
             </tr>
             </tbody>
         </table>
+        <div id="next">Next turn is: CROSS</div>
     </article>
     <script>
         const CIRCLE = 'CIRCLE';
@@ -72,12 +73,14 @@
 
 
         const elems = document.querySelectorAll('td.field');
+        const nextNode = document.getElementById("next");
+
         elems.forEach(element => {
             element.addEventListener("click", (e)=> {
                 if (last === CIRCLE || last === ''){
                     element.innerHTML = "<img src='assets/cross.svg' alt='' width='90px' />"
                     last = CROSS
-                    console.log()
+                    nextNode.innerText = "Next turn is: CIRCLE";
                     addValueToMatrix(e.target.id, CROSS);
                     if(checkHorizontalFields(e.target.parentNode.id) || checkVerticalFields() || checkSideFields()){
                         alert(`${last} WINS!!`)
@@ -86,6 +89,7 @@
                 } else {
                     element.innerHTML = "<img src='assets/circle.svg' alt='' width='90px' />"
                         last = CIRCLE
+                        nextNode.innerText ="Next turn is: CROSS";
                         addValueToMatrix(e.target.id, CIRCLE);
                         if(checkHorizontalFields(e.target.parentNode.id) || checkVerticalFields() || checkSideFields()){
                             alert(`${last} WINS!!`)
