@@ -61,8 +61,14 @@
         function checkVerticalFields(){
             const [first, second, third] = fields;
             for (let count = 0; count < 3; count += 1){
+                console.log(count)
                 return first[count] === second[count] && first[count] === third[count]
             }
+        }
+
+        function checkSideFields(){
+            const [first, second, third] = fields;
+            return first[0] === second[1] && first[0] === third[2] || first[2] === second[1] && first[2] === third[0]
         }
 
 
@@ -71,18 +77,20 @@
             element.addEventListener("click", (e)=> {
                 if (last === '' || last === CIRCLE){
                     last = CROSS
-                    addValueToMatrix(e.target.id, CROSS)
-                    checkHorizontalFields()
-                    console.log(checkVerticalFields())
-                    return element.innerHTML = "<img src='assets/cross.svg' alt='' width='90px' />"
+                    addValueToMatrix(e.target.id, CROSS);
+                    if(checkHorizontalFields() || checkVerticalFields() || checkSideFields()){
+                        alert(`${last} WINS!!`)
+                    }
+                    element.innerHTML = "<img src='assets/cross.svg' alt='' width='90px' />"
                 }
 
                 if(last === CROSS) {
                     last = CIRCLE
-                    addValueToMatrix(e.target.id, CIRCLE)
-                    checkHorizontalFields()
-                    console.log(checkVerticalFields())
-                    return element.innerHTML = "<img src='assets/circle.svg' alt='' width='90px' />"
+                    addValueToMatrix(e.target.id, CIRCLE);
+                    if(checkHorizontalFields() || checkVerticalFields() || checkSideFields()){
+                        alert(`${last} WINS!!`)
+                    }
+                    element.innerHTML = "<img src='assets/circle.svg' alt='' width='90px' />"
                 }
             })
         });
