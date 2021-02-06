@@ -75,22 +75,21 @@
         const elems = document.querySelectorAll('td.field');
         elems.forEach(element => {
             element.addEventListener("click", (e)=> {
-                if (last === '' || last === CIRCLE){
+                if (last === CIRCLE || last === ''){
+                    element.innerHTML = "<img src='assets/cross.svg' alt='' width='90px' />"
                     last = CROSS
                     addValueToMatrix(e.target.id, CROSS);
                     if(checkHorizontalFields() || checkVerticalFields() || checkSideFields()){
                         alert(`${last} WINS!!`)
                     }
-                    element.innerHTML = "<img src='assets/cross.svg' alt='' width='90px' />"
-                }
 
-                if(last === CROSS) {
-                    last = CIRCLE
-                    addValueToMatrix(e.target.id, CIRCLE);
-                    if(checkHorizontalFields() || checkVerticalFields() || checkSideFields()){
-                        alert(`${last} WINS!!`)
-                    }
+                } else {
                     element.innerHTML = "<img src='assets/circle.svg' alt='' width='90px' />"
+                        last = CIRCLE
+                        addValueToMatrix(e.target.id, CIRCLE);
+                        if(checkHorizontalFields() || checkVerticalFields() || checkSideFields()){
+                            alert(`${last} WINS!!`)
+                        }
                 }
             })
         });
