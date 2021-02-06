@@ -22,3 +22,7 @@ table{
     width: 100px;
     text-align: center;
 }
+
+table.won{
+    /*pointer-events: none;*/
+}

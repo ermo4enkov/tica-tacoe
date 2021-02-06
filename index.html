@@ -7,7 +7,7 @@
 </head>
 <body>
     <article class="board">
-        <table>
+        <table id="game_field">
             <tbody>
             <tr id="row_0">
                 <td class="field" id="0"></td>
@@ -33,6 +33,8 @@
         const CROSS = 'CROSS';
         let last = '';
         let fields = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]];
+        const elems = document.querySelectorAll('td.field');
+        const nextNode = document.getElementById("next");
 
         function addValueToMatrix(value, sign){
             let res;
@@ -47,14 +49,13 @@
                 res = 2
                 slot = value - 6
             }
-
             return fields[res][slot] = sign
-        }
+        };
 
         function checkHorizontalFields(id){
             const row = id[id.length-1]
             return fields[row].every((item, index, arr) => item === arr[0])
-        }
+        };
 
         function checkVerticalFields(){
             const [first, second, third] = fields;
@@ -64,16 +65,22 @@
                 }
             }
             return false;
-        }
+        };
 
         function checkSideFields(){
             const [first, second, third] = fields;
             return first[0] === second[1] && first[0] === third[2] || first[2] === second[1] && first[2] === third[0]
-        }
+        };
 
-
-        const elems = document.querySelectorAll('td.field');
-        const nextNode = document.getElementById("next");
+        function win(){
+            const game_field = document.getElementById("game_field");
+            game_field.className = "won";
+            elems.forEach((item) => {
+                item.innerHTML = " ";
+            });
+            fields = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]];
+            last = ''
+        };
 
         elems.forEach(element => {
             element.addEventListener("click", (e)=> {
@@ -84,6 +91,7 @@
                     addValueToMatrix(e.target.id, CROSS);
                     if(checkHorizontalFields(e.target.parentNode.id) || checkVerticalFields() || checkSideFields()){
                         alert(`${last} WINS!!`)
+                        win();
                     }
 
                 } else {
@@ -93,6 +101,7 @@
                         addValueToMatrix(e.target.id, CIRCLE);
                         if(checkHorizontalFields(e.target.parentNode.id) || checkVerticalFields() || checkSideFields()){
                             alert(`${last} WINS!!`)
+                            win();
                         }
                 }
             })
