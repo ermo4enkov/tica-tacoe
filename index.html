@@ -32,7 +32,7 @@
     const CIRCLE = 'CIRCLE';
     const CROSS = 'CROSS';
     let last = '';
-    let fields = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]];
+    let fields = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
     const elems = document.querySelectorAll('td.field');
     const nextNode = document.getElementById("next");
 
@@ -79,10 +79,15 @@
             item.classList.remove("cross");
             item.classList.remove("circle");
         });
-        fields = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]];
+        fields = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
         last = '';
         nextNode.innerText = "Next turn is: CROSS";
     };
+
+    function isDraw(){
+        const filled = fields.flatMap((item) => item.every((item) => typeof item === "string")).filter(value => value).length
+        return filled === 3
+    }
 
     elems.forEach(element => {
         element.addEventListener("click", (e)=> {
@@ -95,7 +100,10 @@
                     alert(`${last} WINS!!`)
                     win();
                 }
-
+                if (isDraw()){
+                    alert("Draw")
+                    win();
+                }
             } else {
                 element.classList.add("circle")
                 last = CIRCLE
@@ -103,6 +111,10 @@
                 addValueToMatrix(e.target.id, CIRCLE);
                 if(checkHorizontalFields(e.target.parentNode.id) || checkVerticalFields() || checkSideFields()){
                     alert(`${last} WINS!!`)
+                    win();
+                }
+                if (isDraw()){
+                    alert("Draw")
                     win();
                 }
             }
