@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tica-tacoe</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="./index.css">
 </head>
 <body>
 <article class="board">
@@ -76,7 +76,8 @@
         const game_field = document.getElementById("game_field");
         game_field.className = "won";
         elems.forEach((item) => {
-            item.innerHTML = " ";
+            item.classList.remove("cross");
+            item.classList.remove("circle");
         });
         fields = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]];
         last = '';
@@ -86,7 +87,7 @@
     elems.forEach(element => {
         element.addEventListener("click", (e)=> {
             if (last === CIRCLE || last === ''){
-                element.innerHTML = "<img src='assets/cross.svg' alt='' width='90px' />"
+                element.classList.add("cross")
                 last = CROSS
                 nextNode.innerText = "Next turn is: CIRCLE";
                 addValueToMatrix(e.target.id, CROSS);
@@ -96,7 +97,7 @@
                 }
 
             } else {
-                element.innerHTML = "<img src='assets/circle.svg' alt='' width='90px' />"
+                element.classList.add("circle")
                 last = CIRCLE
                 nextNode.innerText ="Next turn is: CROSS";
                 addValueToMatrix(e.target.id, CIRCLE);

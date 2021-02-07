@@ -7,10 +7,12 @@ body{
 .board{
     height: 100vh;
     overflow: hidden;
+    text-align: center;
 }
 
 table{
     margin: 0 auto;
+    margin-bottom: 16px;
 }
 
 .field{
@@ -21,4 +23,14 @@ table{
     height: 100px;
     width: 100px;
     text-align: center;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.field.cross{
+    background-image: url("assets/cross.svg");
+}
+
+.field.circle{
+    background-image: url("assets/circle.svg");
 }
