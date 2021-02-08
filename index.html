@@ -82,6 +82,8 @@
         fields = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
         last = '';
         nextNode.innerText = "Next turn is: CROSS";
+        nextNode.classList.remove("cross");
+        nextNode.classList.remove("circle");
     };
 
     function isDraw(){
@@ -95,6 +97,8 @@
                 element.classList.add("cross")
                 last = CROSS
                 nextNode.innerText = "Next turn is: CIRCLE";
+                nextNode.classList.add("circle");
+                nextNode.classList.remove("cross");
                 addValueToMatrix(e.target.id, CROSS);
                 if(checkHorizontalFields(e.target.parentNode.id) || checkVerticalFields() || checkSideFields()){
                     alert(`${last} WINS!!`)
@@ -108,6 +112,8 @@
                 element.classList.add("circle")
                 last = CIRCLE
                 nextNode.innerText ="Next turn is: CROSS";
+                nextNode.classList.add("cross");
+                nextNode.classList.remove("circle");
                 addValueToMatrix(e.target.id, CIRCLE);
                 if(checkHorizontalFields(e.target.parentNode.id) || checkVerticalFields() || checkSideFields()){
                     alert(`${last} WINS!!`)

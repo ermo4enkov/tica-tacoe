@@ -34,3 +34,11 @@ table{
 .field.circle{
     background-image: url("assets/circle.svg");
 }
+
+#next.cross{
+    color: green;
+}
+
+#next.circle{
+    color: red;
+}
