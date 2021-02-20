@@ -10,19 +10,19 @@
     <table id="game_field">
         <tbody>
         <tr id="row_0">
-            <td class="field" id="0"></td>
-            <td class="field" id="1"></td>
-            <td class="field" id="2"></td>
+            <td class="field" id="0" tabindex="1"></td>
+            <td class="field" id="1" tabindex="2"></td>
+            <td class="field" id="2" tabindex="3"></td>
         </tr>
         <tr id="row_1">
-            <td class="field" id="3"></td>
-            <td class="field" id="4"></td>
-            <td class="field" id="5"></td>
+            <td class="field" id="3" tabindex="4"></td>
+            <td class="field" id="4" tabindex="5"></td>
+            <td class="field" id="5" tabindex="6"></td>
         </tr>
         <tr id="row_2">
-            <td class="field" id="6"></td>
-            <td class="field" id="7"></td>
-            <td class="field" id="8"></td>
+            <td class="field" id="6" tabindex="7"></td>
+            <td class="field" id="7" tabindex="8"></td>
+            <td class="field" id="8" tabindex="9"></td>
         </tr>
         </tbody>
     </table>
@@ -122,6 +122,42 @@
                 if (isDraw()){
                     alert("Draw")
                     win();
+                }
+            }
+        })
+
+        element.addEventListener("keydown", (e)=> {
+            if (e.code === 'Enter') {
+                if (last === CIRCLE || last === '') {
+                    element.classList.add("cross")
+                    last = CROSS
+                    nextNode.innerText = "Next turn is: CIRCLE";
+                    nextNode.classList.add("circle");
+                    nextNode.classList.remove("cross");
+                    addValueToMatrix(e.target.id, CROSS);
+                    if (checkHorizontalFields(e.target.parentNode.id) || checkVerticalFields() || checkSideFields()) {
+                        alert(`${last} WINS!!`)
+                        win();
+                    }
+                    if (isDraw()) {
+                        alert("Draw")
+                        win();
+                    }
+                } else {
+                    element.classList.add("circle")
+                    last = CIRCLE
+                    nextNode.innerText = "Next turn is: CROSS";
+                    nextNode.classList.add("cross");
+                    nextNode.classList.remove("circle");
+                    addValueToMatrix(e.target.id, CIRCLE);
+                    if (checkHorizontalFields(e.target.parentNode.id) || checkVerticalFields() || checkSideFields()) {
+                        alert(`${last} WINS!!`)
+                        win();
+                    }
+                    if (isDraw()) {
+                        alert("Draw")
+                        win();
+                    }
                 }
             }
         })
