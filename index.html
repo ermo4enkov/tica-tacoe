@@ -10,19 +10,19 @@
     <table id="game_field">
         <tbody>
         <tr id="row_0">
-            <td class="field" id="0"></td>
-            <td class="field" id="1"></td>
-            <td class="field" id="2"></td>
+            <td class="field" id="0" tabindex="1"></td>
+            <td class="field" id="1" tabindex="2"></td>
+            <td class="field" id="2" tabindex="3"></td>
         </tr>
         <tr id="row_1">
-            <td class="field" id="3"></td>
-            <td class="field" id="4"></td>
-            <td class="field" id="5"></td>
+            <td class="field" id="3" tabindex="4"></td>
+            <td class="field" id="4" tabindex="5"></td>
+            <td class="field" id="5" tabindex="6"></td>
         </tr>
         <tr id="row_2">
-            <td class="field" id="6"></td>
-            <td class="field" id="7"></td>
-            <td class="field" id="8"></td>
+            <td class="field" id="6" tabindex="7"></td>
+            <td class="field" id="7" tabindex="8"></td>
+            <td class="field" id="8" tabindex="9"></td>
         </tr>
         </tbody>
     </table>
@@ -50,12 +50,12 @@
             slot = value - 6
         }
         return fields[res][slot] = sign
-    };
+    }
 
     function checkHorizontalFields(id){
         const row = id[id.length-1]
         return fields[row].every((item, index, arr) => item === arr[0])
-    };
+    }
 
     function checkVerticalFields(){
         const [first, second, third] = fields;
@@ -65,12 +65,12 @@
             }
         }
         return false;
-    };
+    }
 
     function checkSideFields(){
         const [first, second, third] = fields;
         return first[0] === second[1] && first[0] === third[2] || first[2] === second[1] && first[2] === third[0]
-    };
+    }
 
     function win(){
         const game_field = document.getElementById("game_field");
@@ -84,11 +84,42 @@
         nextNode.innerText = "Next turn is: CROSS";
         nextNode.classList.remove("cross");
         nextNode.classList.remove("circle");
-    };
+    }
 
     function isDraw(){
         const filled = fields.flatMap((item) => item.every((item) => typeof item === "string")).filter(value => value).length
         return filled === 3
+    }
+
+    function aImOve(){
+        const arrElems = []
+        elems.forEach(element => {
+            if (element.classList.length < 2){
+                arrElems.push(element)
+            }
+        })
+
+        if (arrElems.length !== 0){
+            const field = Math.floor(Math.random() * Math.floor(arrElems.length));
+            console.log(arrElems[field])
+            addValueToMatrix(arrElems[field].id, CIRCLE);
+            arrElems[field].classList.add("circle")
+            last = CIRCLE
+            nextNode.innerText ="Next turn is: CROSS";
+            nextNode.classList.add("cross");
+            nextNode.classList.remove("circle");
+            console.log(fields)
+            if(checkHorizontalFields(arrElems[String(field)].parentNode.id) || checkVerticalFields() || checkSideFields()){
+                alert(`${last} WINS!!`)
+                win();
+            } else{
+                console.log('Whats wrong')
+            }
+        }
+        if (isDraw()){
+            alert("Draw");
+            win();
+        }
     }
 
     elems.forEach(element => {
@@ -99,6 +130,7 @@
                 nextNode.innerText = "Next turn is: CIRCLE";
                 nextNode.classList.add("circle");
                 nextNode.classList.remove("cross");
+                console.log(e.target.id)
                 addValueToMatrix(e.target.id, CROSS);
                 if(checkHorizontalFields(e.target.parentNode.id) || checkVerticalFields() || checkSideFields()){
                     alert(`${last} WINS!!`)
@@ -108,22 +140,10 @@
                     alert("Draw")
                     win();
                 }
-            } else {
-                element.classList.add("circle")
-                last = CIRCLE
-                nextNode.innerText ="Next turn is: CROSS";
-                nextNode.classList.add("cross");
-                nextNode.classList.remove("circle");
-                addValueToMatrix(e.target.id, CIRCLE);
-                if(checkHorizontalFields(e.target.parentNode.id) || checkVerticalFields() || checkSideFields()){
-                    alert(`${last} WINS!!`)
-                    win();
-                }
-                if (isDraw()){
-                    alert("Draw")
-                    win();
-                }
             }
+            setTimeout(function (){
+                aImOve();
+            }, 500)
         })
     });
 </script>
