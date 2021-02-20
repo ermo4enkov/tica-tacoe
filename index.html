@@ -101,19 +101,15 @@
 
         if (arrElems.length !== 0){
             const field = Math.floor(Math.random() * Math.floor(arrElems.length));
-            console.log(arrElems[field])
             addValueToMatrix(arrElems[field].id, CIRCLE);
             arrElems[field].classList.add("circle")
             last = CIRCLE
             nextNode.innerText ="Next turn is: CROSS";
             nextNode.classList.add("cross");
             nextNode.classList.remove("circle");
-            console.log(fields)
             if(checkHorizontalFields(arrElems[String(field)].parentNode.id) || checkVerticalFields() || checkSideFields()){
                 alert(`${last} WINS!!`)
                 win();
-            } else{
-                console.log('Whats wrong')
             }
         }
         if (isDraw()){
@@ -130,7 +126,6 @@
                 nextNode.innerText = "Next turn is: CIRCLE";
                 nextNode.classList.add("circle");
                 nextNode.classList.remove("cross");
-                console.log(e.target.id)
                 addValueToMatrix(e.target.id, CROSS);
                 if(checkHorizontalFields(e.target.parentNode.id) || checkVerticalFields() || checkSideFields()){
                     alert(`${last} WINS!!`)
