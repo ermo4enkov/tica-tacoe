@@ -91,6 +91,31 @@
         return filled === 3
     }
 
+    function aImOve(){
+        const arrElems = []
+        elems.forEach(element => {
+            if (element.classList.length < 2){
+                arrElems.push(element)
+            }
+        })
+
+        const field = Math.floor(Math.random() * Math.floor(arrElems.length));
+        arrElems[field].classList.add("circle")
+        last = CIRCLE
+        nextNode.innerText ="Next turn is: CROSS";
+        nextNode.classList.add("cross");
+        nextNode.classList.remove("circle");
+        addValueToMatrix(field, CIRCLE);
+        if(checkHorizontalFields(arrElems[field].parentNode.id) || checkVerticalFields() || checkSideFields()){
+            alert(`${last} WINS!!`)
+            win();
+        }
+        if (isDraw()){
+            alert("Draw")
+            win();
+        }
+    }
+
     elems.forEach(element => {
         element.addEventListener("click", (e)=> {
             if (last === CIRCLE || last === ''){
@@ -108,22 +133,10 @@
                     alert("Draw")
                     win();
                 }
-            } else {
-                element.classList.add("circle")
-                last = CIRCLE
-                nextNode.innerText ="Next turn is: CROSS";
-                nextNode.classList.add("cross");
-                nextNode.classList.remove("circle");
-                addValueToMatrix(e.target.id, CIRCLE);
-                if(checkHorizontalFields(e.target.parentNode.id) || checkVerticalFields() || checkSideFields()){
-                    alert(`${last} WINS!!`)
-                    win();
-                }
-                if (isDraw()){
-                    alert("Draw")
-                    win();
-                }
             }
+            setTimeout(function (){
+                aImOve();
+            }, 500)
         })
 
         element.addEventListener("keydown", (e)=> {
